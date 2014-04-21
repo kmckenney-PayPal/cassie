@@ -28,11 +28,11 @@ import org.apache.cassandra.finagle.thrift.Cassandra.ServiceToClient
 import org.apache.cassandra.finagle.thrift.{ UnavailableException, TimedOutException }
 import org.apache.thrift.protocol.{ TBinaryProtocol, TProtocolFactory }
 
-sealed case class RetryPolicy()
+sealed trait RetryPolicy
 
 object RetryPolicy {
-  val Idempotent = RetryPolicy()
-  val NonIdempotent = RetryPolicy()
+  case object Idempotent extends RetryPolicy
+  case object NonIdempotent extends RetryPolicy
 }
 
 private[cassie] class ClusterClientProvider(
